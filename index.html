@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Casa Lizano Vega</title>
+<title>Casa Vega</title>
 <meta name="description" content="Modelo 3D de la casa: 42 m², dos dormitorios y un baño. Mírala por dentro y por fuera, de día y de noche, cámbiale los colores o entra a jugar.">
 <!-- Vista previa al mandar el link por WhatsApp y otras apps (la imagen es vista-previa.jpg; la dirección tiene que ser completa) -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CR">
-<meta property="og:site_name" content="Casa Lizano Vega">
-<meta property="og:title" content="Casa Lizano Vega · modelo 3D">
+<meta property="og:site_name" content="Casa Vega">
+<meta property="og:title" content="Casa Vega · modelo 3D">
 <meta property="og:description" content="Mírala por dentro y por fuera, de día y de noche, cámbiale los colores o entra a jugar.">
 <meta property="og:url" content="https://wyvxl.github.io/casa-3d/">
 <meta property="og:image" content="https://wyvxl.github.io/casa-3d/vista-previa.jpg">
@@ -389,7 +389,7 @@
 <header class="tb panel">
   <div class="tb-head">
     <p class="sec-h eyebrow">Vivienda prefabricada · una planta</p>
-    <h1>Casa Lizano Vega</h1>
+    <h1>Casa Vega</h1>
     <p class="tb-sub">Baño al centro, dos dormitorios y sala, comedor y cocina en un mismo espacio.</p>
     <button type="button" class="tb-more" id="tb-more" aria-expanded="false" aria-controls="tb-grid"><b>42 m&sup2;</b><i class="chev"></i></button>
   </div>
@@ -2867,7 +2867,7 @@
     const url = shareURL();
     try { history.replaceState(null, '', url.slice(url.indexOf('#'))); } catch (err) { /* la barra de direcciones queda igual */ }
     if (navigator.share && matchMedia('(pointer: coarse)').matches) {   // teléfono: el menú de compartir (WhatsApp, etc.)
-      try { await navigator.share({ title: 'Casa Lizano Vega', text: 'Mira la casa así:', url }); return; }
+      try { await navigator.share({ title: 'Casa Vega', text: 'Mira la casa así:', url }); return; }
       catch (err) { if (err && err.name === 'AbortError') return; }
     }
     try { await navigator.clipboard.writeText(url); toast('Link copiado. Pégalo en WhatsApp o donde quieras.'); }
