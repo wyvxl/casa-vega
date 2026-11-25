@@ -1698,9 +1698,9 @@
     pathStones.count = n; pathStones.instanceMatrix.needsUpdate = true;
   }
 
-  /* Zacate alto (2026-11-25): matas de hojas largas en el talud del frente y en una franja angosta junto a los linderos, donde la
-     chapea no llega. Cada mata son tres planos cruzados con una textura de hojas con huecos (alphaTest); todas en una sola
-     llamada de dibujo (InstancedMesh). No proyectan sombra. Con el boquete el talud desaparece, así que van con la terraza de hoy */
+  /* Zacate alto (2026-11-25): matas de hojas largas en una franja angosta junto a los linderos, donde la chapea no llega (en el
+     talud del frente no: a la dueña no le gustó). Cada mata son tres planos cruzados con una textura de hojas con huecos (alphaTest); todas en una sola
+     llamada de dibujo (InstancedMesh). No proyectan sombra. Con el boquete el frente cambia, así que van con la terraza de hoy */
   const tuftTex = tex(128, 128, (g, w, h, r) => {
     g.clearRect(0, 0, w, h);
     for (let i = 0; i < 46; i++) {
@@ -1731,8 +1731,8 @@
       const s = sIn(x, z), b = -sBack(x, z), w = -wOf(x, z), e = -eOf(x, z);
       if (s < 0.08 || b < 0.08 || w < 0.06 || e < 0.08) continue;                        // adentro del lote
       if (e < gradaE && s < GROUND.talud + 3.3) continue;                                 // la grada y sus jardineras
-      const talud = s < GROUND.talud - 0.1, edge = b < 0.5 || w < 0.22 || e < 0.4;
-      if (!(talud ? r() < 0.45 : edge && r() < 0.55)) continue;
+      if (s < GROUND.talud + 0.1) continue;                                               // el frente (talud) queda sin zacate alto (pedido de la dueña)
+      if (!((b < 0.5 || w < 0.22 || e < 0.4) && r() < 0.55)) continue;
       pts.push([x, z]);
     }
     const tufts = new THREE.InstancedMesh(tuftGeo, tuftMat, pts.length), d = new THREE.Object3D();
