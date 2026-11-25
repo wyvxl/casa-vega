@@ -568,8 +568,6 @@
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   } catch (e) { fail(); return; }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.shadowMap.autoUpdate = false;       // las sombras se recalculan solo cuando algo cambia (ver el bucle, en tamaño y bucle)
@@ -1030,8 +1028,8 @@
 
   /* ---------- luces interiores (se encienden de noche) ---------- */
   const roomLights = [];
-  [[1.5, 1.25, 1.0, 3.6], [1.5, 5.5, 1.0, 3.8], [0.98, 3.25, 0.6, 2.8], [4.44, 1.5, 0.9, 4.4], [4.44, 4.4, 0.9, 4.4], [4.45, 6.5, 0.8, 3.6], [3.54, -0.3, 0.6, 3.2]].forEach(([x, y, max, dist]) => {
-    const L = new THREE.PointLight(0xffc98a, 0, dist, 2);
+  [[1.5, 1.25, 1.0], [1.5, 5.5, 1.0], [0.98, 3.25, 0.6], [4.44, 1.5, 0.9], [4.44, 4.4, 0.9], [4.45, 6.5, 0.8], [3.54, -0.3, 0.6]].forEach(([x, y, max]) => {
+    const L = new THREE.PointLight(0xffc98a, 0, 5.5, 1.6);
     L.position.set(X(x), FL + CEIL - 0.25, Z(y)); L.userData.max = max; house.add(L); roomLights.push(L);   // siguen a la casa
     const fx = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.03, 16), M.bulb.clone()); L.userData.fx = fx;   // plafón propio
     fx.position.set(X(x), FL + CEIL - 0.015, Z(y)); roof.add(fx);
