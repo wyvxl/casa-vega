@@ -163,7 +163,7 @@
   .hint{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);margin:0;padding:7px 12px;background:var(--paper);border:1px solid var(--rule);color:var(--ink-2);font-size:12.5px;white-space:nowrap;pointer-events:none;transition:opacity .6s ease}
   .hint.is-gone{opacity:0}
 
-  /* Medir y Compartir: debajo de las vistas en la computadora; en el teléfono, dos botones redondos sobre la hoja de abajo */
+  /* Medir, Compartir y Tema: debajo de las vistas en la computadora; en el teléfono, botones redondos sobre la hoja de abajo */
   .tools{display:flex;margin-bottom:auto}
   .tools button{display:flex;align-items:center;gap:7px;padding:9px 12px;background:none;border:0;border-right:1px solid var(--rule);color:var(--ink);
     font:600 13px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;cursor:pointer}
@@ -171,6 +171,9 @@
   .tools button:hover{background:var(--paper-2)}
   .tools button[aria-pressed="true"]{background:var(--measure);color:#fff}
   .tools svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .tools .ico-sun{display:none}
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tools .ico-moon{display:none} :root:not([data-theme="light"]) .tools .ico-sun{display:block} }
+  :root[data-theme="dark"] .tools .ico-moon{display:none} :root[data-theme="dark"] .tools .ico-sun{display:block}
   /* La barra de la medida: qué tocar, y después la distancia */
   .measure-bar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:4;display:flex;align-items:stretch;max-width:calc(100% - 32px)}
   .mb-text{margin:0;padding:9px 14px;align-self:center;font:500 13.5px/1.3 var(--body);color:var(--ink);white-space:nowrap}
@@ -303,15 +306,15 @@
      Las vistas y las pestañas siempre se ven; el cuerpo solo aparece con una pestaña escogida (data-tab en .rail) */
   @media (max-width: 800px){
     .tb{top:0;left:0;right:0;width:auto;max-height:70%;border-width:0 0 1px}
-    .tb-head{display:flex;align-items:center;gap:8px;padding:9px 10px calc(9px + env(safe-area-inset-top,0px));border-bottom:0}
+    .tb-head{display:flex;align-items:center;gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-top,0px));border-bottom:0}
     .tb.is-open .tb-head{border-bottom:1px solid var(--rule-strong)}
     .tb h1{font:700 15px/1 var(--display);margin:0;flex:1 1 auto;min-width:0;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .tb-head .eyebrow,.tb-sub{display:none}
-    .tb-more{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:28px;height:34px;padding:0;background:none;border:0;color:var(--ink);cursor:pointer}
+    .tb-more{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:30px;height:36px;padding:0;background:none;border:0;color:var(--ink);cursor:pointer}
     .tb-more b{display:none}                                  /* el área se lee al abrir el cajetín */
     /* Las cinco vistas van en la misma línea del nombre, para no gastar un renglón abajo */
     .tb-head .views{flex:0 0 auto;border:0;box-shadow:none;background:none}
-    .tb-head .views button{flex:0 0 auto;padding:11px 4px;font-size:10px;letter-spacing:.02em;border-right:1px solid var(--rule)}
+    .tb-head .views button{flex:0 0 auto;padding:11px 6px;font-size:11px;letter-spacing:.03em;border-right:1px solid var(--rule)}
     .tb-head .views button:last-child{border-right:0}
     .tb-grid,.tb .spaces{display:none}
     .tb.is-open .tb-grid{display:grid;border-bottom:0}
@@ -430,6 +433,7 @@
   <div class="tools panel" id="tools">
     <button type="button" id="t-measure" aria-pressed="false" title="Medir: toca dos puntos del modelo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15.5 15.5 3 21 8.5 8.5 21z"/><path d="M6.8 11.7l1.8 1.8M9.6 8.9l1.2 1.2M12.4 6.1l1.8 1.8M8.2 16.4l1.2 1.2"/></svg><span>Medir</span></button>
     <button type="button" id="t-share" title="Compartir esta vista: un link que abre la casa tal como la ves"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5.5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="18.5" r="2.5"/><path d="M8.2 10.8l7.6-4.1M8.2 13.2l7.6 4.1"/></svg><span>Compartir</span></button>
+    <button type="button" id="t-theme" title="Cambiar tema claro u oscuro" aria-label="Cambiar tema claro u oscuro"><svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg><span>Tema</span></button>
   </div>
   <div class="sheet-grip" id="sheet-grip"><span></span></div>
   <div class="sheet-tabs" id="sheet-tabs">
@@ -564,6 +568,8 @@
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   } catch (e) { fail(); return; }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.shadowMap.autoUpdate = false;       // las sombras se recalculan solo cuando algo cambia (ver el bucle, en tamaño y bucle)
@@ -726,7 +732,7 @@
     floorBase: std({ color: 0x9a958d, roughness: 1 }),
     mirror: std({ color: 0x9fb3bd, roughness: .08, metalness: .7 }),
     bulb: std({ color: 0xffffff, emissive: 0xffe2b0, emissiveIntensity: 0, roughness: .4 }),
-    leaf: std({ color: 0x4F7F3E, roughness: .9, flatShading: true }),
+    leaf: std({ color: 0x4F7F3E, roughness: .88 }),
   };
   // Follaje de los árboles, los arbustos y las jardineras del lote
   /* Follaje más real (2026-11-19): antes cada copa era una bola facetada de un solo color. Ahora lleva una textura de hojitas
@@ -758,14 +764,15 @@
     const mk = cv => { const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2); t.anisotropy = maxAniso; return t; };
     return { map: mk(c), n: mk(nc) };
   })();
-  const leafMats = [0x4c7a3b, 0x5f8c46, 0x3f6a34, 0x6e9a52].map(c => std({ color: c, map: LEAF.map, normalMap: LEAF.n, normalScale: new THREE.Vector2(.9, .9), roughness: .85, flatShading: true }));
-  // Copa deformada: cada vértice sale o entra un poco según su posición (las caras que comparten el vértice siguen pegadas)
+  const leafMats = [0x4c7a3b, 0x5f8c46, 0x3f6a34, 0x6e9a52].map(c => std({ color: c, map: LEAF.map, normalMap: LEAF.n, normalScale: new THREE.Vector2(.9, .9), roughness: .85 }));
+  // Copa deformada con lóbulos suaves: cada vértice sale o entra según una onda continua en su dirección
   function leafGeo(rad, seed) {
-    const geo = new THREE.IcosahedronGeometry(rad, 1), p = geo.attributes.position, v = new V3();
+    const geo = new THREE.IcosahedronGeometry(rad, 2), p = geo.attributes.position, v = new V3();
     for (let i = 0; i < p.count; i++) {
       v.fromBufferAttribute(p, i);
-      const h = Math.sin(v.x * 12.9898 / rad + v.y * 78.233 / rad + v.z * 37.719 / rad + seed * 1.7) * 43758.5453;
-      v.multiplyScalar(1 + ((h - Math.floor(h)) - .5) * .28); p.setXYZ(i, v.x, v.y, v.z);
+      const nx = v.x / rad, ny = v.y / rad, nz = v.z / rad;
+      const lobe = Math.sin(nx * 3.1 + seed) * Math.cos(ny * 2.7 - seed * 0.6) + 0.45 * Math.sin(nz * 4.3 + nx * 2.1 + seed * 1.3);
+      v.multiplyScalar(1 + lobe * 0.11); p.setXYZ(i, v.x, v.y, v.z);
     }
     geo.computeVertexNormals(); return geo;
   }
@@ -834,12 +841,24 @@
   function addWindow(axis, at, o, out) {
     const w = o.b - o.a, h = o.top - o.bottom;
     const g = onWall(axis, at, (o.a + o.b) / 2, FL + o.bottom);
-    const f = 0.05, d = 0.07;
-    const parts = [[f, h, d, -w / 2 + f / 2, h / 2], [f, h, d, w / 2 - f / 2, h / 2], [w, f, d, 0, h - f / 2], [w, f, d, 0, f / 2]];
-    if (!o.frosted) parts.push([0.035, h - 2 * f, d * .8, 0, h / 2]);
-    parts.forEach(([pw, ph, pd, px, py]) => addBox(pw, ph, pd, M.alu, px, py, 0, g));
-    const gl = new THREE.Mesh(new THREE.BoxGeometry(w - 2 * f, h - 2 * f, 0.012), o.frosted ? M.frosted : M.glass);
-    gl.position.set(0, h / 2, 0); gl.userData.noPick = true; g.add(gl);
+    const f = 0.05, d = 0.07, ih = h - 2 * f, iw = w - 2 * f;
+    [[f, h, d, -w / 2 + f / 2, h / 2], [f, h, d, w / 2 - f / 2, h / 2], [w, f, d, 0, h - f / 2], [w, f, d, 0, f / 2]]
+      .forEach(([pw, ph, pd, px, py]) => addBox(pw, ph, pd, M.alu, px, py, 0, g));
+    if (o.frosted) {
+      const gl = new THREE.Mesh(new THREE.BoxGeometry(iw, ih, 0.012), M.frosted);
+      gl.position.set(0, h / 2, 0); gl.userData.noPick = true; g.add(gl);
+    } else {
+      // Ventana corrediza de dos hojas traslapadas
+      const s = 0.024, sd = 0.02, lw = iw / 2 + s / 2;
+      [-1, 1].forEach(side => {
+        const cx = side * (iw - lw) / 2, cz = side * 0.011;
+        [[s, ih, sd, cx - lw / 2 + s / 2, h / 2], [s, ih, sd, cx + lw / 2 - s / 2, h / 2],
+         [lw, s, sd, cx, h - f - s / 2], [lw, s, sd, cx, f + s / 2]]
+          .forEach(([pw, ph, pd, px, py]) => addBox(pw, ph, pd, M.alu, px, py, cz, g));
+        const gl = new THREE.Mesh(new THREE.BoxGeometry(lw - 2 * s, ih - 2 * s, 0.008), M.glass);
+        gl.position.set(cx, h / 2, cz); gl.userData.noPick = true; g.add(gl);
+      });
+    }
     if (!out) return;
     const sgn = (out === 'pz' || out === 'px') ? 1 : -1;
     if (o.banquina) {
@@ -1011,8 +1030,8 @@
 
   /* ---------- luces interiores (se encienden de noche) ---------- */
   const roomLights = [];
-  [[1.5, 1.25, 1.0], [1.5, 5.5, 1.0], [0.98, 3.25, 0.6], [4.44, 1.5, 0.9], [4.44, 4.4, 0.9], [4.45, 6.5, 0.8], [3.54, -0.3, 0.6]].forEach(([x, y, max]) => {
-    const L = new THREE.PointLight(0xffc98a, 0, 5.5, 1.6);
+  [[1.5, 1.25, 1.0, 3.6], [1.5, 5.5, 1.0, 3.8], [0.98, 3.25, 0.6, 2.8], [4.44, 1.5, 0.9, 4.4], [4.44, 4.4, 0.9, 4.4], [4.45, 6.5, 0.8, 3.6], [3.54, -0.3, 0.6, 3.2]].forEach(([x, y, max, dist]) => {
+    const L = new THREE.PointLight(0xffc98a, 0, dist, 2);
     L.position.set(X(x), FL + CEIL - 0.25, Z(y)); L.userData.max = max; house.add(L); roomLights.push(L);   // siguen a la casa
     const fx = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.03, 16), M.bulb.clone()); L.userData.fx = fx;   // plafón propio
     fx.position.set(X(x), FL + CEIL - 0.015, Z(y)); roof.add(fx);
@@ -1030,6 +1049,16 @@
   };
   function fbox(x0, x1, y0, y1, z0, z1, c) {
     const m = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, z1 - z0, y1 - y0), mat(c));
+    m.position.set(X((x0 + x1) / 2), FL + (z0 + z1) / 2, Z((y0 + y1) / 2)); m.castShadow = m.receiveShadow = true; fp.add(m);
+    stopsFranco(x0, x1, y0, y1, z0, z1); return m;
+  }
+  function fsoft(x0, x1, y0, y1, z0, z1, c, r = 0.028) {
+    const wx = x1 - x0, wz = y1 - y0, hh = z1 - z0, bv = Math.min(r, wx * 0.28, wz * 0.28, hh * 0.44);
+    const sx = Math.max(0.004, wx - 2 * bv), sz = Math.max(0.004, wz - 2 * bv);
+    const s = new THREE.Shape(); s.moveTo(-sx / 2, -sz / 2); s.lineTo(sx / 2, -sz / 2); s.lineTo(sx / 2, sz / 2); s.lineTo(-sx / 2, sz / 2); s.closePath();
+    const g = new THREE.ExtrudeGeometry(s, { depth: Math.max(0.002, hh - 2 * bv), bevelEnabled: true, bevelThickness: bv, bevelSize: bv, bevelSegments: 3 });
+    g.rotateX(-Math.PI / 2); g.center();
+    const m = new THREE.Mesh(g, mat(c));
     m.position.set(X((x0 + x1) / 2), FL + (z0 + z1) / 2, Z((y0 + y1) / 2)); m.castShadow = m.receiveShadow = true; fp.add(m);
     stopsFranco(x0, x1, y0, y1, z0, z1); return m;
   }
@@ -1064,15 +1093,16 @@
   // ('-x' | '+x' | '-y' | '+y'); at: coordenada de la cara de atrás; mid: centro a lo ancho
   function butaca(back, at, mid) {
     const dir = back[0] === '-' ? 1 : -1, alongX = back[1] === 'x';
-    const B = (u0, u1, v0, v1, z0, z1, c) => {
+    const B = (u0, u1, v0, v1, z0, z1, c, soft) => {
       const p = [at + dir * u0, at + dir * u1].sort((a, b) => a - b);
-      return alongX ? fbox(p[0], p[1], mid + v0, mid + v1, z0, z1, c) : fbox(mid + v0, mid + v1, p[0], p[1], z0, z1, c);
+      const fn = soft ? fsoft : fbox;
+      return alongX ? fn(p[0], p[1], mid + v0, mid + v1, z0, z1, c, soft) : fn(mid + v0, mid + v1, p[0], p[1], z0, z1, c, soft);
     };
-    B(0, 0.68, -0.35, 0.35, 0.1, 0.44, COL.but);        // asiento
-    B(0, 0.2, -0.35, 0.35, 0.1, 0.85, COL.but);         // respaldo
-    B(0, 0.68, -0.35, -0.25, 0.1, 0.62, COL.but);       // brazos
+    B(0, 0.68, -0.35, 0.35, 0.1, 0.44, COL.but);              // asiento
+    B(0, 0.2, -0.35, 0.35, 0.1, 0.85, COL.but);               // respaldo
+    B(0, 0.68, -0.35, -0.25, 0.1, 0.62, COL.but);             // brazos
     B(0, 0.68, 0.25, 0.35, 0.1, 0.62, COL.but);
-    B(0.22, 0.64, -0.24, 0.24, 0.44, 0.52, COL.butL);   // cojín
+    B(0.22, 0.64, -0.24, 0.24, 0.44, 0.52, COL.butL, 0.03);   // cojín suave
     const p = [at + dir * 0.02, at + dir * 0.66].sort((a, b) => a - b);
     if (alongX) legs(p[0], p[1], mid - 0.33, mid + 0.33, 0.1, COL.woodD, 0.05);
     else legs(mid - 0.33, mid + 0.33, p[0], p[1], 0.1, COL.woodD, 0.05);
@@ -1080,17 +1110,18 @@
   // Cama matrimonial de 1.38 × 1.90 m. head: pared de la cabecera ('-x' | '+x' | '-y' | '+y'); at: coordenada de esa pared; mid: centro a lo ancho
   function bed(head, at, mid, blanket) {
     const dir = head[0] === '-' ? 1 : -1, alongX = head[1] === 'x';
-    const B = (u0, u1, v0, v1, z0, z1, c) => {
+    const B = (u0, u1, v0, v1, z0, z1, c, soft) => {
       const p = [at + dir * u0, at + dir * u1].sort((a, b) => a - b);
-      return alongX ? fbox(p[0], p[1], mid + v0, mid + v1, z0, z1, c) : fbox(mid + v0, mid + v1, p[0], p[1], z0, z1, c);
+      const fn = soft ? fsoft : fbox;
+      return alongX ? fn(p[0], p[1], mid + v0, mid + v1, z0, z1, c, soft) : fn(mid + v0, mid + v1, p[0], p[1], z0, z1, c, soft);
     };
     B(0, 0.06, -0.76, 0.76, 0, 1.05, COL.woodD);                 // cabecera
     B(0.06, 2.0, -0.71, 0.71, 0.08, 0.3, COL.woodD);             // base
     [[0.06, 0.12], [1.94, 2.0]].forEach(([u0, u1]) => [[-0.71, -0.65], [0.65, 0.71]].forEach(([v0, v1]) => B(u0, u1, v0, v1, 0, 0.08, COL.woodD)));
-    B(0.08, 1.98, -0.69, 0.69, 0.3, 0.5, COL.linen);             // colchón
-    B(0.72, 2.01, -0.72, 0.72, 0.44, 0.53, blanket);             // cobija
-    B(0.13, 0.47, -0.6, -0.05, 0.5, 0.62, COL.pillow);
-    B(0.13, 0.47, 0.05, 0.6, 0.5, 0.62, COL.pillow);
+    B(0.08, 1.98, -0.69, 0.69, 0.3, 0.5, COL.linen, 0.03);       // colchón
+    B(0.72, 2.01, -0.72, 0.72, 0.44, 0.53, blanket, 0.025);      // cobija
+    B(0.13, 0.47, -0.6, -0.05, 0.5, 0.62, COL.pillow, 0.04);
+    B(0.13, 0.47, 0.05, 0.6, 0.5, 0.62, COL.pillow, 0.04);
   }
   function lamp(cx, cy, z) { fcyl(cx, cy, 0.05, z, z + 0.28, COL.woodD, 0.03); fcyl(cx, cy, 0.12, z + 0.28, z + 0.46, COL.linen, 0.08); }
   function plant(cx, cy, z0 = 0, s = 1) {
@@ -1404,7 +1435,7 @@
   earthFlat(([x, z]) => sIn(x, z) - GROUND.talud, today);
   earthFlat(([x, z]) => vOf(x, z) - BOQ.depth - BOQ.wall, boqG);
   // Línea roja sobre el borde exacto del lote y un mojón en cada vértice. La línea sigue el terreno (baja por el talud)
-  const lotRed = new THREE.MeshBasicMaterial({ color: 0xE0241B });
+  const lotRed = new THREE.MeshBasicMaterial({ color: 0xE0241B, toneMapped: false });
   // Donde la línea cae en un escalón (muro del vecino, tapia), va por el lado más alto, así no se esconde en el terreno
   const lotEdge = (p, q, material, w, parent = site, yOf = groundY) => {
     const len = Math.hypot(q[0] - p[0], q[1] - p[1]), n = Math.max(1, Math.ceil(len / 0.25));
@@ -1435,7 +1466,7 @@
   const DERROTERO_DER = [[[61, 20, 29], 8.0], [[170, 57, 13], 24.71], [[236, 57, 6], 10.86], [[356, 5, 55], 26.55]];
   const walk = (pt, [az, dist], k) => { const d = azDir(azRad(az)); return [pt[0] + d.x * dist * k, pt[1] + d.z * dist * k]; };
   const LOT_DER = [walk(LOT[0], DERROTERO_DER[0], -1), LOT[0], LOT[3], walk(LOT[3], DERROTERO_DER[2], 1)];
-  const lotAmber = new THREE.MeshBasicMaterial({ color: 0xF2A516 });
+  const lotAmber = new THREE.MeshBasicMaterial({ color: 0xF2A516, toneMapped: false });
   [0, 2, 3].forEach(i => lotEdge(LOT_DER[i], LOT_DER[(i + 1) % 4], lotAmber, 0.07));   // la línea compartida queda roja
   [0, 3].forEach(i => mojon(LOT_DER[i], lotAmber, 0.045));
 
@@ -1584,6 +1615,7 @@
       const rg = g.createRadialGradient(0, 0, 64, 0, 0, 98); rg.addColorStop(0, 'rgba(0,0,0,1)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
       g.fillStyle = rg; g.fillRect(-120, -110, 240, 220); g.restore();
       ktex.needsUpdate = true;
+      if (typeof wake === 'function') wake();
     };
     img.src = KEYLIN_JPG;
     // ko: +1 si la x local va hacia este lote. La cortina tapa la mitad del otro lado y ella se asoma hacia acá
@@ -2075,7 +2107,7 @@
   /* ---------- cielo, sol y estrellas ---------- */
   const skyU = { top: { value: new THREE.Color() }, bottom: { value: new THREE.Color() } };
   const sky = new THREE.Mesh(new THREE.SphereGeometry(220, 32, 16), new THREE.ShaderMaterial({
-    uniforms: skyU, side: THREE.BackSide, depthWrite: false,
+    uniforms: skyU, side: THREE.BackSide, depthWrite: false, toneMapped: false,
     vertexShader: 'varying vec3 vW; void main(){ vW = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
     fragmentShader: 'uniform vec3 top; uniform vec3 bottom; varying vec3 vW; void main(){ float h = clamp(vW.y,0.0,1.0); gl_FragColor = vec4(mix(bottom, top, pow(h,0.55)), 1.0); }'
   }));
@@ -2083,7 +2115,7 @@
   const sp = [], sr = rng(3);
   for (let i = 0; i < 700; i++) { const a = sr() * Math.PI * 2, y = 0.12 + sr() * 0.88, rad = Math.sqrt(1 - y * y); sp.push(Math.cos(a) * rad * 200, y * 200, Math.sin(a) * rad * 200); }
   const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
-  const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 1.6, sizeAttenuation: false, transparent: true, opacity: 0, fog: false, depthWrite: false });
+  const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 1.6, sizeAttenuation: false, transparent: true, opacity: 0, fog: false, depthWrite: false, toneMapped: false });
   const stars = new THREE.Points(sg, starMat); scene.add(stars);
 
   const hemi = new THREE.HemisphereLight(0xE3EDF4, 0x8a6a55, 0.55); scene.add(hemi);
@@ -2103,7 +2135,7 @@
     if (h < 6) return 'madrugada'; if (h >= 18.75) return 'noche'; if (h < 7) return 'amanecer';
     if (h < 11.5) return 'mañana'; if (h < 13.5) return 'mediodía'; if (h < 17.25) return 'tarde'; return 'atardecer';
   }
-  let lastHour = 10, rainK = 0;                               // rainK: cuánto llueve (juego), de 0 a 1
+  let lastHour = 10, lastHourText = '', rainK = 0;                 // rainK: cuánto llueve (juego), de 0 a 1
   const ENV_MATS = [];                                        // [material, reflejo de día]: el reflejo del cielo baja de noche (ver PHOTO)
   let envDay = 1;                                             // el factor de ahora (applyHour), para los materiales que llegan después
   const rainTop = new THREE.Color(0x7D8891), rainBot = new THREE.Color(0xA3ACB2);
@@ -2136,8 +2168,9 @@
       L.intensity = k * L.userData.max; L.userData.fx.material.emissiveIntensity = k * 1.6;
     });
     lastHour = h;
-    const hh = Math.floor(h), mm = Math.round((h - hh) * 60);
-    $('#hour-out').innerHTML = `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}<span>${period(h)}</span>`;
+    const mins = Math.round(h * 60), hh = Math.floor(mins / 60), mm = mins % 60;
+    const hourText = `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}<span>${period(h)}</span>`;
+    if (hourText !== lastHourText) { lastHourText = hourText; $('#hour-out').innerHTML = hourText; }
   }
 
   /* ---------- etiquetas HTML sobre el 3D ---------- */
@@ -2155,7 +2188,7 @@
     roomLabels[r.id] = L;
   });
 
-  const dimMat = new THREE.MeshBasicMaterial({ color: 0xFBFAF6 });
+  const dimMat = new THREE.MeshBasicMaterial({ color: 0xFBFAF6, toneMapped: false });
   // k: dónde va la etiqueta sobre la línea, de 0 (en x1, y1) a 1 (en x2, y2). Por omisión al centro; se corre cuando
   // la etiqueta chocaría con otra, como la distancia al vecino de la izquierda contra la medida de 7.00 de la casa
   function dimLine(x1, y1, x2, y2, text, grp = dims, k = 0.5) {
@@ -2293,11 +2326,13 @@
   };
   function bake(root) {
     root.updateMatrixWorld(true);
-    const inv = root.matrixWorld.clone().invert(), buckets = new Map(), done = [];
+    const inv = root.matrixWorld.clone().invert(), buckets = new Map(), done = [], tmpGeos = [], oldGeos = new Set();
     const walk = o => o.children.forEach(c => {
       if (!c.visible || c.userData.live || (c !== root && BAKE_ROOTS.includes(c))) return;
       if (c.children.length || !bakeable(c)) { walk(c); return; }
       const g = c.geometry.index ? c.geometry.toNonIndexed() : c.geometry, n = g.attributes.position.count;
+      if (g !== c.geometry) tmpGeos.push(g);
+      oldGeos.add(c.geometry);
       const m = new THREE.Matrix4().multiplyMatrices(inv, c.matrixWorld), mats = Array.isArray(c.material) ? c.material : [c.material];
       const attrs = Object.keys(g.attributes).sort(), sig = attrs.map(a => a + g.attributes[a].itemSize).join();
       (Array.isArray(c.material) ? g.groups : [{ start: 0, count: n, materialIndex: 0 }]).forEach(p => {
@@ -2334,6 +2369,9 @@
       const mesh = new THREE.Mesh(geo, b.mat);
       mesh.castShadow = b.cast; mesh.receiveShadow = b.recv; mesh.renderOrder = b.order; root.add(mesh);
     });
+    tmpGeos.forEach(g => g.dispose());
+    root.traverse(o => { if (o.isMesh && o.geometry) oldGeos.delete(o.geometry); });
+    oldGeos.forEach(g => g.dispose());
   }
   /* ---------- texturas fotográficas (2026-11-19) ----------
      Las texturas dibujadas arriba con canvas salen al instante; apenas se descargan las fotos de tex/ se les cambia la imagen
@@ -2476,7 +2514,10 @@
       uv.needsUpdate = true; g.userData.worldUV = true;
     });
     const loader = new THREE.ImageLoader();
-    const swap = (t, file) => loader.load('tex/' + file + '.jpg', img => { t.image = img; t.needsUpdate = true; renderer.initTexture(t); reshadow(); });
+    const swap = (t, file) => loader.load('tex/' + file + '.jpg', img => {
+      try { t.image = img; t.needsUpdate = true; renderer.initTexture(t); wake(); }
+      catch (err) { /* sin servidor local algunas políticas bloquean texturas en file://; queda el canvas */ }
+    }, undefined, () => {});
     PHOTO.forEach(p => { swap(p.t, p.name); swap(p.n, p.name + '_n'); });
   }
   BAKE_ROOTS.forEach(bake);
@@ -2666,13 +2707,12 @@
   document.querySelectorAll('.views button[data-view]').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
 
   // Selección con clic/toque en el modelo
-  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), pickCand = [];
+  const collectVisible = (roots, out) => { out.length = 0; roots.forEach(g => g.traverseVisible(o => { if (o.isMesh && !o.userData.noPick) out.push(o); })); return out; };
   function pick(e) {
     ndc.set(e.clientX / window.innerWidth * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const cand = [];
-    [house, roof, furn, site].forEach(g => g.traverseVisible(o => { if (o.isMesh && !o.userData.noPick) cand.push(o); }));
-    const hit = ray.intersectObjects(cand, false)[0];
+    const hit = ray.intersectObjects(collectVisible([house, roof, furn, site], pickCand), false)[0];
     for (let o = hit && hit.object; o; o = o.parent) if (o.userData.room) return o.userData.room;
     return null;
   }
@@ -2709,19 +2749,17 @@
      caminando por el rayo con groundY (o boqY con el boquete). Arrastrar sigue girando la cámara */
   const MEASURE = { on: false, a: null, b: null, h: null };
   const measureG = new THREE.Group(); measureG.visible = false; scene.add(measureG);
-  const mMat = new THREE.MeshBasicMaterial({ color: 0x2F6FD0, depthTest: false, depthWrite: false, transparent: true, fog: false });
+  const mMat = new THREE.MeshBasicMaterial({ color: 0x2F6FD0, depthTest: false, depthWrite: false, transparent: true, fog: false, toneMapped: false });
   const mDotGeo = new THREE.SphereGeometry(1, 16, 10);
   const mA = new THREE.Mesh(mDotGeo, mMat), mB = new THREE.Mesh(mDotGeo, mMat);
   const mLine = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 10, 1, true), mMat);
   [mA, mB, mLine].forEach(m => { m.renderOrder = 20; measureG.add(m); });
   const mLabel = addLabel('dim measure', '', new V3()); mLabel.grp = mLine;   // se ve cuando se ve la línea
-  const mRay = new THREE.Raycaster(), mNdc = new THREE.Vector2();
+  const mRay = new THREE.Raycaster(), mNdc = new THREE.Vector2(), mCand = [];
   function pointAt(e) {
     mNdc.set(e.clientX / window.innerWidth * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
     mRay.setFromCamera(mNdc, camera);
-    const cand = [];
-    [house, roof, furn, site, neighbors, extra].forEach(g => g.traverseVisible(o => { if (o.isMesh && !o.userData.noPick) cand.push(o); }));
-    const hit = mRay.intersectObjects(cand, false)[0];
+    const hit = mRay.intersectObjects(collectVisible([house, roof, furn, site, neighbors, extra], mCand), false)[0];
     let best = hit ? hit.point.clone() : null;
     // El suelo: pasos que crecen con la distancia y, al pasar abajo, se afina entre los dos últimos
     const yOf = state.boq ? boqY : groundY, o = mRay.ray.origin, d = mRay.ray.direction, far = hit ? hit.distance : 300;
@@ -4011,6 +4049,7 @@
         Object.assign(mesh, { castShadow: c0.castShadow, receiveShadow: c0.receiveShadow, renderOrder: c0.renderOrder, visible: c0.visible });
         mesh.userData.noPick = true;
         list.forEach(c => node.remove(c)); node.add(mesh);
+        new Set(list.map(c => c.geometry)).forEach(g => g.dispose());
         if (n) { const o = outfits[n]; o.parts = o.parts.filter(p => !list.includes(p)); o.parts.push(mesh); }
       });
     });
@@ -4303,17 +4342,20 @@
   const camExtra = [];
   function camHit(ax, ay, bx, by) {
     const m = 0.12, dx = bx - ax, dy = by - ay; let best = 1;
-    for (const o of camExtra.length ? OBST.concat(camExtra) : OBST) {
-      if (o[4] !== 'wall') continue;
-      const x0 = o[0] - m, x1 = o[1] + m, y0 = o[2] - m, y1 = o[3] + m;
-      if (ax > x0 && ax < x1 && ay > y0 && ay < y1) continue;
-      let t0 = 0, t1 = 1;
-      if (Math.abs(dx) < 1e-9) { if (ax < x0 || ax > x1) continue; }
-      else { let p = (x0 - ax) / dx, q = (x1 - ax) / dx; if (p > q) [p, q] = [q, p]; t0 = Math.max(t0, p); t1 = Math.min(t1, q); }
-      if (Math.abs(dy) < 1e-9) { if (ay < y0 || ay > y1) continue; }
-      else { let p = (y0 - ay) / dy, q = (y1 - ay) / dy; if (p > q) [p, q] = [q, p]; t0 = Math.max(t0, p); t1 = Math.min(t1, q); }
-      if (t0 <= t1 && t0 < best) best = t0;
-    }
+    const check = list => {
+      for (const o of list) {
+        if (o[4] !== 'wall') continue;
+        const x0 = o[0] - m, x1 = o[1] + m, y0 = o[2] - m, y1 = o[3] + m;
+        if (ax > x0 && ax < x1 && ay > y0 && ay < y1) continue;
+        let t0 = 0, t1 = 1;
+        if (Math.abs(dx) < 1e-9) { if (ax < x0 || ax > x1) continue; }
+        else { let p = (x0 - ax) / dx, q = (x1 - ax) / dx; if (p > q) [p, q] = [q, p]; t0 = Math.max(t0, p); t1 = Math.min(t1, q); }
+        if (Math.abs(dy) < 1e-9) { if (ay < y0 || ay > y1) continue; }
+        else { let p = (y0 - ay) / dy, q = (y1 - ay) / dy; if (p > q) [p, q] = [q, p]; t0 = Math.max(t0, p); t1 = Math.min(t1, q); }
+        if (t0 <= t1 && t0 < best) best = t0;
+      }
+    };
+    check(OBST); if (camExtra.length) check(camExtra);
     const len = Math.hypot(dx, dy) || 1;
     for (const d of DOORS) {
       const a = d.rot0 + d.th, ex = Math.cos(a) * d.L, ey = -Math.sin(a) * d.L, den = dx * ey - dy * ex;
@@ -5648,14 +5690,33 @@
   }
   /* Mapa: centrado en el niño y girado con la cámara (lo que tiene enfrente queda arriba). El lote, los cuartos, las paredes y los
      muebles, la losa, la pelota (roja), Marshall (café) y el niño (la flecha) */
+  const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+  let paperColor = '#FBFAF6';
+  const syncTheme = () => {
+    paperColor = getComputedStyle(document.documentElement).getPropertyValue('--paper').trim() || '#FBFAF6';
+    const isDark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && darkMQ.matches);
+    const label = isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro';
+    $('#t-theme').title = label; $('#t-theme').setAttribute('aria-label', label);
+  };
+  try { const th = localStorage.getItem('casa-tema'); if (th === 'dark' || th === 'light') document.documentElement.dataset.theme = th; } catch (err) { /* sin almacenamiento */ }
+  syncTheme();
+  darkMQ.addEventListener?.('change', syncTheme);
+  $('#t-theme').addEventListener('click', () => {
+    const isDark = document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && darkMQ.matches);
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('casa-tema', next); } catch (err) { /* sin almacenamiento */ }
+    syncTheme();
+  });
+
   const mapCv = $('#fh-minimap'), mapG = mapCv.getContext('2d'), mq = new V3();
   const toPlan = (x, z) => { mq.set(x, 0, z).sub(houseOff).applyAxisAngle(UPY, -houseYaw); return [mq.x + W / 2, mq.z + D / 2]; };
   let mapTick = 0;
   function drawMap() {
     if ((mapTick = (mapTick + 1) % 2)) return;                 // cada dos cuadros alcanza
-    const g = mapG, S = 280, k = 17, css = getComputedStyle(document.documentElement);
+    const g = mapG, S = 280, k = 17;
     g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, S, S);
-    g.fillStyle = css.getPropertyValue('--paper').trim() || '#FBFAF6'; g.fillRect(0, 0, S, S);
+    g.fillStyle = paperColor; g.fillRect(0, 0, S, S);
     g.save(); g.translate(S / 2, S / 2); g.rotate(fr.camYaw); g.scale(k, k); g.translate(-fr.x, -fr.y);
     g.fillStyle = '#E4CDB8'; g.strokeStyle = '#E0241B'; g.lineWidth = 0.12;               // el lote
     g.beginPath(); LOT.forEach(([x, z], i) => { const [px, py] = toPlan(x, z); i ? g.lineTo(px, py) : g.moveTo(px, py); }); g.closePath(); g.fill(); g.stroke();
@@ -5923,7 +5984,7 @@
       playFov(); gameRes(true);
       canvas.focus({ preventScroll: true });
     } else {
-      gameRes(false); orbitLow = false;
+      gameRes(false); orbitLow = false; keylinStep(0);
       resetThings(); resetWorld(); resetStars(); dog.visible = playG.visible = false; kid.root.visible = false; calmDown(kid); playMusic(null);
       DOORS.forEach(d => { d.leaf.rotation.y = d.home; });
       controls.target.copy(fr.look);
@@ -5972,7 +6033,8 @@
   let wakeUntil = 0;
   const wake = (ms = 1000) => { wakeUntil = Math.max(wakeUntil, performance.now() + ms); };
   const reshadow = () => { renderer.shadowMap.needsUpdate = true; wake(); };
-  ['pointerdown', 'pointermove', 'wheel', 'touchstart', 'touchmove'].forEach(t => window.addEventListener(t, () => wake(), { capture: true, passive: true }));
+  ['pointerdown', 'wheel', 'touchstart'].forEach(t => window.addEventListener(t, () => wake(), { capture: true, passive: true }));
+  ['pointermove', 'touchmove'].forEach(t => canvas.addEventListener(t, () => wake(), { passive: true }));
   ['pointerup', 'click', 'input', 'change', 'keydown'].forEach(t => window.addEventListener(t, reshadow, { capture: true, passive: true }));
   ['visibilitychange', 'pageshow', 'focus'].forEach(t => window.addEventListener(t, reshadow));
   canvas.addEventListener('webglcontextrestored', reshadow);
@@ -6127,8 +6189,9 @@
        estrellas y la noche (warmUp, en la sección niños). Si no, se preparan la primera vez que se ven y la página se congela
        un momento: pasar a la noche por primera vez tardaba cerca de un segundo (2026-09-22). Mientras, sigue el aviso Armando la casa */
     if (firstFrame) warmUp();
-    keylinStep(now);
+    if (fr.on) keylinStep(now);
     if (measureG.visible) measureScale();                     // la medida, del mismo grueso en pantalla de cerca y de lejos
+    sky.position.copy(camera.position); stars.position.copy(camera.position);
     renderer.render(scene, camera);
     if (!fr.on) updateLabels();
     if (firstFrame) { firstFrame = false; setLoading(null); }  // ya se ve la casa

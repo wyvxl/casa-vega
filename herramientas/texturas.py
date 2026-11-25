@@ -32,10 +32,10 @@ def descargar():
     for i in FOTOS:
         faltan = [k for k in ('diff', 'nor') if not os.path.exists(f'{S}/{i}_{k}.jpg')]
         if not faltan: continue
-        f = json.load(op.open('https://api.polyhaven.com/files/' + i))
+        f = json.load(op.open('https://api.polyhaven.com/files/' + i, timeout=15))
         for key, k in (('Diffuse', 'diff'), ('nor_gl', 'nor')):
             if k in faltan:
-                with op.open(f[key]['1k']['jpg']['url']) as r, open(f'{S}/{i}_{k}.jpg', 'wb') as out: out.write(r.read())
+                with op.open(f[key]['1k']['jpg']['url'], timeout=15) as r, open(f'{S}/{i}_{k}.jpg', 'wb') as out: out.write(r.read())
         print('descargada', i)
 
 
@@ -88,7 +88,7 @@ def generar():
         for j in range(2):
             x, y = rnd.randrange(0, 1024 - s), rnd.randrange(0, 1024 - s)
             tile[j * s:(j + 1) * s, i * s:(i + 1) * s] = detail(pp[y:y + s, x:x + s], .95 + rnd.uniform(-.02, .02), .025)
-    for k in range(0, N + 1, s):
+    for k in range(0, N, s):
         for kk in range(-3, 3):
             idx = (k + kk) % N; tile[idx, :] = [.62, .58, .54]; tile[:, idx] = [.62, .58, .54]; h[idx, :] = -1; h[:, idx] = -1
     save(tile, 'tile'); save(height_normal(blur((h + 1) / 2, 1.2), 3.0), 'tile_n')
